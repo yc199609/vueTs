@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'iconfont';  /* project id 1674929 */
+    src: url('//at.alicdn.com/t/font_1674929_r34zkglwroi.eot');
+    src: url('//at.alicdn.com/t/font_1674929_r34zkglwroi.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1674929_r34zkglwroi.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1674929_r34zkglwroi.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1674929_r34zkglwroi.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1674929_r34zkglwroi.svg#iconfont') format('svg');
+}
+
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    height: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+  
+html {
+    height: 100%;
+}
+  
+#app {
+    height: 100%;
+}
+
+.clearfix {
+    @include clearfix;
+}
