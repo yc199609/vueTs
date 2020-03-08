@@ -2,7 +2,10 @@
     <div
         @click="toggleClick"
     >
-        <i class="el-icon-s-fold" style="font-size:18px;"></i>
+        <i class="fz18" :class="{
+            'el-icon-s-fold':isActive,
+            'el-icon-s-unfold':!isActive
+        }"></i>
     </div>
 </template>
 <script lang="ts">
@@ -19,3 +22,8 @@ export default class extends Vue {
     }
 }
 </script>
+<style lang="scss" scoped>
+.fz18{
+    font-size:18px;
+}
+</style>
