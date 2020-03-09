@@ -27,6 +27,7 @@ export default new Router({
                     component: () => import('@/views/home/index.vue'),
                     meta: {
                         title: 'Dashboard',
+                        icon: '&#xe61f;',
                     },
                 },
             ],
@@ -37,6 +38,7 @@ export default new Router({
             redirect: '/example/tree',
             meta: {
                 title: 'Example',
+                icon: '&#xe602;',
             },
             children: [
                 {
@@ -44,6 +46,7 @@ export default new Router({
                     component: () => import('@/views/example/tree.vue'),
                     meta: {
                         title: 'Tree',
+                        icon: '&#xec3c;',
                     },
                 },
                 {
@@ -51,6 +54,7 @@ export default new Router({
                     component: () => import('@/views/example/table.vue'),
                     meta: {
                         title: 'Table',
+                        icon: '&#xe60f;',
                     },
                 },
             ],

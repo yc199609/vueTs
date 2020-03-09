@@ -9,13 +9,10 @@
                 :to="resolvePath(theOnlyOneChild.path)"
             >
                 <el-menu-item
-                :index="resolvePath(theOnlyOneChild.path)"
-                :class="{'submenu-title-noDropdown': isFirstLevel}"
+                    :index="resolvePath(theOnlyOneChild.path)"
+                    :class="{'submenu-title-noDropdown': isFirstLevel}"
                 >
-                <svg-icon
-                    v-if="theOnlyOneChild.meta.icon"
-                    :name="theOnlyOneChild.meta.icon"
-                />
+                <i class="iconfont icon-size" v-html="theOnlyOneChild.meta.icon" />
                 <span
                     v-if="theOnlyOneChild.meta.title"
                     slot="title"
@@ -29,9 +26,10 @@
             popper-append-to-body
         >
             <template slot="title">
-                <svg-icon
+                <i
                     v-if="item.meta && item.meta.icon"
-                    :name="item.meta.icon"
+                    class="iconfont icon-size" 
+                    v-html="item.meta.icon" 
                 />
                 <span
                     v-if="item.meta && item.meta.title"
@@ -114,6 +112,12 @@ export default class extends Vue {
 }
 </script>
 <style lang="scss">
+.el-menu--collapse {
+    .el-submenu__icon-arrow{
+        display: none;
+    }
+}
+
 .el-submenu.is-active > .el-submenu__title {
     color: $subMenuActiveText !important;
 }
@@ -169,5 +173,13 @@ export default class extends Vue {
     .svg-icon {
         margin-left: 20px;
     }
+}
+
+.icon-size{
+    font-size: 16px;
+    margin-right: 17px;
+    display: inline-block;
+    width: 16px;
+    // height: 18px;
 }
 </style>
