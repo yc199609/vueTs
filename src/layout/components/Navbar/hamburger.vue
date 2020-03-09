@@ -1,5 +1,6 @@
 <template>
     <div
+        class="iconBox"
         @click="toggleClick"
     >
         <i class="fz18" :class="{
@@ -24,6 +25,10 @@ export default class extends Vue {
 </script>
 <style lang="scss" scoped>
 .fz18{
-    font-size:18px;
+    font-size: 20px;
+}
+.iconBox{
+    display: flex;
+    align-items: center;
 }
 </style>

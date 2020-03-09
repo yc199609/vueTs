@@ -1,6 +1,7 @@
 <template>
     <div
         class="app-wrapper"
+        :class="classObj"
     >
         <div
             v-if="classObj.mobile && sidebar.opened"

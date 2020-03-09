@@ -25,6 +25,33 @@ export default new Router({
                 {
                     path: 'dashboard',
                     component: () => import('@/views/home/index.vue'),
+                    meta: {
+                        title: 'Dashboard',
+                    },
+                },
+            ],
+        },
+        {
+            path: '/example',
+            component: Layout,
+            redirect: '/example/tree',
+            meta: {
+                title: 'Example',
+            },
+            children: [
+                {
+                    path: 'tree',
+                    component: () => import('@/views/example/tree.vue'),
+                    meta: {
+                        title: 'Tree',
+                    },
+                },
+                {
+                    path: 'table',
+                    component: () => import('@/views/example/table.vue'),
+                    meta: {
+                        title: 'Table',
+                    },
                 },
             ],
         },

@@ -19,3 +19,5 @@ export const validatePassword = (rule: any, value: string, callback: (err?: Erro
         callback();
     }
 };
+
+export const isExternal = (path: string) => /^(https?:|mailto:|tel:)/.test(path);
