@@ -5,3 +5,8 @@ export const Login = (loginForm: { mobile: number, password: string }) => reques
     method: 'post',
     data: loginForm,
 });
+
+export const getInfo = () => request({
+    url: '/api/User/OptWhoami',
+    method: 'get',
+});

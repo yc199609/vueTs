@@ -36,6 +36,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import Hamburger from './hamburger.vue';
 import Breadcrumb from './breadcrumb.vue';
 import { AppModule } from '../../../store/modules/app';
+import { UserModule } from '@/store/modules/user';
 
 @Component({
     name: 'Navbar',
@@ -55,7 +56,8 @@ export default class extends Vue {
         AppModule.ToggleSideBar(false);
     }
     private logout() {
-        this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+        UserModule.FedLogOut();
+        location.reload();
     }
 }
 </script>

@@ -6,7 +6,7 @@
         <transition-group name="breadcrumb">
             <el-breadcrumb-item
                 v-for="(item, index) in breadcrumbs"
-                :key="index"
+                :key="item.path"
             >
                 <span
                     v-if="item.redirect === 'noredirect' || index === breadcrumbs.length - 1"
@@ -68,8 +68,6 @@ export default class extends Vue {
     }
 
     private pathCompile(path: string) {
-        console.log(path);
-        console.log(this.$route);
         const { params } = this.$route;
         const toPath = compile(path);
         return toPath(params);

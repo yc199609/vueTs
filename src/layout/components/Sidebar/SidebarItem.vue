@@ -66,8 +66,8 @@ import SidebarItemLink from './SidebarItemLink.vue';
 })
 export default class extends Vue {
     @Prop({ required: true }) private item!: RouteConfig;
-    @Prop({ required: true }) private isCollapse!: RouteConfig;
-    @Prop({ required: true }) private isFirstLevel!: boolean;
+    @Prop({ default: true }) private isCollapse!: RouteConfig;
+    @Prop({ default: true }) private isFirstLevel!: boolean;
     @Prop({ default: '' }) private basePath!: string;
 
     get showingChildNumber() {
@@ -165,21 +165,11 @@ export default class extends Vue {
 </style>
 
 <style lang="scss" scoped>
-.svg-icon {
-    margin-right: 16px;
-}
-
-.simple-mode {
-    .svg-icon {
-        margin-left: 20px;
-    }
-}
-
 .icon-size{
     font-size: 16px;
-    margin-right: 17px;
     display: inline-block;
-    width: 16px;
-    // height: 18px;
+    width: 54px;
+    text-align: center;
 }
+
 </style>
