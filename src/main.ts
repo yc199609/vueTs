@@ -10,6 +10,9 @@ import '@/styles/index.scss';
 import './permission';
 import store from './store';
 import router from './router';
+// import './scorllBar';
+
+
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);

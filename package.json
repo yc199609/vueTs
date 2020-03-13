@@ -16,6 +16,7 @@
     "js-cookie": "^2.2.1",
     "normalize.css": "^8.0.1",
     "path-to-regexp": "^6.1.0",
+    "perfect-scrollbar": "^1.5.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
     "vue-property-decorator": "^8.3.0",

@@ -1,5 +1,6 @@
 <template>
-    <div
+    <el-scrollbar
+        wrap-class="scrollbar-wrapper"
         class="app-wrapper"
         :class="classObj"
     >
@@ -13,7 +14,7 @@
             <navbar />
             <app-main />
         </div>
-    </div>
+    </el-scrollbar>
 </template>
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
@@ -42,6 +43,11 @@ export default class extends mixins(ResizeMixin) {
     }
 }
 </script>
+<style lang="scss">
+.scrollbar-wrapper{
+    overflow-x: hidden !important;
+}
+</style>
 <style lang="scss" scoped>
 .app-wrapper{
     @include clearfix;
@@ -49,7 +55,6 @@ export default class extends mixins(ResizeMixin) {
     height: 100%;
     width: 100%;
 }
-
 .drawer-bg {
     background: #000;
     opacity: 0.3;
