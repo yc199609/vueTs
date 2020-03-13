@@ -3,7 +3,7 @@
         v-if="!item.meta || !item.meta.hidden"
         :class="['menu-wrapper', isCollapse ? 'simple-mode' : 'full-mode', {'first-level': isFirstLevel}]"
     >
-        <template v-if="theOnlyOneChild && !theOnlyOneChild.children">
+        <template v-if="theOnlyOneChild && !theOnlyOneChild.children && !(item.meta && item.meta.alwaysShow)">
             <sidebar-item-link
                 v-if="theOnlyOneChild.meta"
                 :to="resolvePath(theOnlyOneChild.path)"

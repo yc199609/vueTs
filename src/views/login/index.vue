@@ -105,15 +105,12 @@ export default class extends Vue {
                 const { data } = await Login(this.loginForm);
                 this.loading = false;
                 if (data.isNeedResetPassword === 0) { // 是否需要重置密码，0是，1否
-                    console.log(123);
                 } else {
                     window.location.href = data.redirectUrl;
                 }
-                console.log(data);
             }
         });
     }
-
 }
 </script>
 <style lang="scss" scoped>

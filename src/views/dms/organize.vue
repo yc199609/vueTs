@@ -1,6 +1,6 @@
 <template>
     <div>
-Cmd
+Organize
     </div>
 </template>
 
@@ -8,7 +8,7 @@ Cmd
 import { Vue, Component } from 'vue-property-decorator';
 
 @Component({
-    name: 'Cmd',
+    name: 'Organize',
 })
 export default class extends Vue {}
 </script>

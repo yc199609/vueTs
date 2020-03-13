@@ -55,16 +55,14 @@ export default class extends Vue {
                 { path: '/dashboard', meta: { title: 'Dashboard' } } as RouteRecord,
             ].concat(matched);
         }
-        // console.log(matched);
         this.breadcrumbs = matched.filter((item) => {
             return item.meta && item.meta.title && item.meta.breadcrumb !== false;
         });
-        // console.log(this.breadcrumbs);
     }
 
     private isDashboard(route: RouteRecord) {
         const name = route && route.meta && route.meta.title;
-        return name === 'Dashboard';
+        return name === '首页';
     }
 
     private pathCompile(path: string) {
@@ -74,7 +72,6 @@ export default class extends Vue {
     }
 
     private handleLink(item: RouteRecord) {
-        // console.log(item);
         const { redirect, path } = item;
         if (redirect) {
             return redirect;

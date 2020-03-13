@@ -12,7 +12,7 @@
             :background-color="variables.menuBg"
             :text-color="variables.menuText"
             :active-text-color="variables.menuActiveText"
-            :unique-opened="false"
+            :unique-opened="true"
             :collapse-transition="false"
         >
             <sidebar-item
@@ -49,7 +49,6 @@ export default class extends Vue {
         return !this.sidebar.opened;
     }
     get routes() {
-        console.log(this.$router);
         return (this.$router as any).options.routes;
     }
 }
@@ -81,7 +80,6 @@ export default class extends Vue {
   }
 }
 </style>
-
 
 <style lang="scss" scoped>
 .app-title{

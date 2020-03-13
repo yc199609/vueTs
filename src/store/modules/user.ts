@@ -1,7 +1,7 @@
 import store from '@/store';
 import { Module, VuexModule, Mutation, getModule, Action } from 'vuex-module-decorators';
 import { getInfo } from '@/api/login';
-import router, { getRoute, asyncRouter } from '@/router';
+import router, { getRoute, asyncRouter, Menu } from '@/router';
 import {removeToken} from '@/utils/auth';
 
 interface Fn {
@@ -19,6 +19,7 @@ export interface IUserState {
 class User extends VuexModule implements IUserState {
     public name = '';
     public functions: Fn[] = [];
+    public menus: Menu[] = [];
 
     @Action
     public async GetInfo() {
@@ -26,9 +27,9 @@ class User extends VuexModule implements IUserState {
         if (data.userInfo) {
             this.SET_NAME(data.userInfo.userName);
             this.SET_FUCTIONS(data.userInfo.functions);
-            // console.log(asyncRouter);
+            this.SET_MENUS(data.userInfo.menus);
+
             const routes = getRoute(asyncRouter, data.userInfo.menus);
-            console.log(routes);
             routes.push({path: '*', redirect: '/404', hidden: true});
             (router as any).options.routes = [...(router as any).options.routes, ...routes];
             router.addRoutes(routes);
@@ -53,6 +54,11 @@ class User extends VuexModule implements IUserState {
     @Mutation
     private SET_FUCTIONS(functions: Fn[]) {
         this.functions = functions;
+    }
+
+    @Mutation
+    private SET_MENUS(menus: Menu[]) {
+        this.menus = menus;
     }
 
 }
