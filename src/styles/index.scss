@@ -41,3 +41,14 @@ a{
     outline: none;
     text-decoration:none;
 }
+
+.empty{
+    img{
+        display:block;
+        height: 80px;
+        margin: 0 auto;
+    }
+    p{
+        line-height:1em;
+    }
+}

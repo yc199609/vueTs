@@ -21,3 +21,5 @@ export const validatePassword = (rule: any, value: string, callback: (err?: Erro
 };
 
 export const isExternal = (path: string) => /^(https?:|mailto:|tel:)/.test(path);
+
+export const isNotEmpty = (str: string) => str.trim().length > 0;

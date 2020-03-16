@@ -114,7 +114,7 @@ export default new Router({
             children: [
                 {
                     path: 'organize',
-                    component: () => import('@/views/dms/organize.vue'),
+                    component: () => import('@/views/dms/organize/index.vue'),
                     name: 'organize',
                     meta: { title: '机构列表', icon: '&#xe712;' },
                 },

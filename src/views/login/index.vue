@@ -16,7 +16,6 @@
 
             <el-form-item prop="mobile">
                 <span class="svg-container">
-                    <!-- <svg-icon name="user" /> -->
                     <i class="el-icon-s-custom"></i>
                 </span>
                 <el-input
@@ -32,7 +31,6 @@
             <el-form-item prop="password">
                 <span class="svg-container">
                     <i class="el-icon-lock"></i>
-                    <!-- <svg-icon name="password" /> -->
                 </span>
                 <el-input
                     :key="passwordType"
