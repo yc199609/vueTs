@@ -6,13 +6,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'normalize.css';
 import '@/styles/index.scss';
 
-
 import './permission';
 import store from './store';
 import router from './router';
-// import './scorllBar';
-
-
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);

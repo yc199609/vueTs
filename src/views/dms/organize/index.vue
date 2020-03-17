@@ -3,6 +3,12 @@
         <searchBar :options="options" @search="search" @handleInsert="handleInsert" />
         <el-card style="margin-top:10px;">
             <el-table border :data="tableData" >
+                <template slot="empty">
+                    <div class="empty">
+                        <img src="@/assets/empty.png">
+                        <p>暂无数据</p>
+                    </div>
+                </template>
                 <el-table-column align="center" prop="name" label="简称"></el-table-column>
                 <el-table-column align="center" prop="code" label="代码"></el-table-column>
                 <el-table-column align="center" prop="dmsSite" label="站点"></el-table-column>
@@ -23,7 +29,7 @@
                         </el-tooltip>
 
                         <el-tooltip content="绑定物理设备" placement="top" effect="dark">
-                            <el-button size="small" type="primary" icon="el-icon-plus" @click="bindDevice(scope.row.id, scope.row.name)"></el-button>
+                            <el-button size="small" type="primary" icon="el-icon-plus" @click="handleBindDevice(scope.row.id, scope.row.name)"></el-button>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -43,6 +49,7 @@
         <createOrganize ref="createOrganize" v-if="createOrganizeVisible" @hidden='dialogHidden' />
         <setupOrganize ref="setupOrganize" v-if="setupOrganizeVisible" @hidden='dialogHidden' />
         <businessParameter ref="busParams" v-if="busParamsVisible" @hidden='dialogHidden' />
+        <bindPhysiDevice ref="bindPhysiDevice" v-if="bindPhysiDeviceVisible" @hidden='dialogHidden' />
     </div>
 </template>
 
@@ -54,7 +61,7 @@ import searchBar, { Type, Option } from '@/components/searchBar.vue';
 import Pagination from '@/mixins/pagination';
 import { getCompanyList } from '@/api/dms/organize';
 import { isNotEmpty } from '@/utils/validate';
-import { baseInformation, createOrganize, setupOrganize, businessParameter } from './components';
+import { baseInformation, createOrganize, setupOrganize, businessParameter, bindPhysiDevice } from './components';
 
 interface Item {
     code: string;
@@ -75,6 +82,7 @@ interface Item {
         createOrganize,
         setupOrganize,
         businessParameter,
+        bindPhysiDevice,
     },
 })
 export default class Organize extends mixins(Pagination) {
@@ -82,6 +90,7 @@ export default class Organize extends mixins(Pagination) {
     private createOrganizeVisible: boolean = false;
     private setupOrganizeVisible: boolean = false;
     private busParamsVisible: boolean = false;
+    private bindPhysiDeviceVisible: boolean = false;
     private options: Option[] = [
         { title: '创建机构', emit: 'handleInsert', icon: '', type: Type.warning },
     ];
@@ -141,8 +150,11 @@ export default class Organize extends mixins(Pagination) {
             (this.$refs.setupOrganize as any).init(id);
         });
     }
-    private bindDevice() {
-        console.log('bindDevice');
+    private handleBindDevice(id: number, name: string) {
+        this.bindPhysiDeviceVisible = true;
+        this.$nextTick(() => {
+            (this.$refs.bindPhysiDevice as any).init(id, name);
+        });
     }
     private handleBusParams(id: number) {
         this.busParamsVisible = true;

@@ -16,5 +16,5 @@ export default class extends Vue {
         this.pageIndex = val;
         this.init();
     }
-    protected init() {}
+    protected init(...arg: any[]) {}
 }

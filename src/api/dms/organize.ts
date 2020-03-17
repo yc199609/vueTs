@@ -88,3 +88,51 @@ export const getSystemInfoById = (id: number) => request({
         id,
     },
 });
+
+export const getConfigById = (obj: {id: number, pageIndex: number, pageSize: number }) => request({
+    url: '/api/Operation/Company/GetConfigById',
+    method: 'get',
+    params: obj,
+});
+
+export interface ConfigItem {
+    id: number;
+    companyId: number;
+    value: string;
+}
+
+export const updateConfigItem = (obj: ConfigItem) => request({
+    url: '/api/Operation/Company/UpdateConfigItem',
+    method: 'post',
+    data: obj,
+});
+
+export interface ConfigParam {
+    name: string;
+    code: string;
+    value: string;
+    description: string;
+    companyId: number;
+    isToPC: number;
+    isToWeChat: number;
+}
+
+export const createConfigItem = (obj: ConfigParam) => request({
+    url: '/api/Operation/Company/CreateConfigItem',
+    method: 'post',
+    data: obj,
+});
+
+export const GetPDevicesByCompanyId = (companyId: number) => request({
+    url: '/api/Operation/PDevice/GetPDevicesByCompanyId',
+    method: 'get',
+    params: {
+        companyId,
+    },
+});
+
+export const getPDevice = (obj: { pageIndex: number, pageSize: number }) => request({
+    url: '',
+    method: 'get',
+    params: obj,
+});
