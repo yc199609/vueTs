@@ -127,6 +127,7 @@ export default class Organize extends mixins(Pagination) {
         this.createOrganizeVisible = false;
         this.setupOrganizeVisible = false;
         this.busParamsVisible = false;
+        this.bindPhysiDeviceVisible = false;
         this.init();
     }
 

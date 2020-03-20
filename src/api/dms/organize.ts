@@ -123,7 +123,7 @@ export const createConfigItem = (obj: ConfigParam) => request({
     data: obj,
 });
 
-export const GetPDevicesByCompanyId = (companyId: number) => request({
+export const getPDevicesByCompanyId = (companyId: number) => request({
     url: '/api/Operation/PDevice/GetPDevicesByCompanyId',
     method: 'get',
     params: {
@@ -131,8 +131,16 @@ export const GetPDevicesByCompanyId = (companyId: number) => request({
     },
 });
 
+// 获取物理设备列表(分页)
 export const getPDevice = (obj: { pageIndex: number, pageSize: number }) => request({
-    url: '',
+    url: '/api/Operation/PDevice/Get',
     method: 'get',
     params: obj,
+});
+
+// 绑定机构与物理设备关系
+export const bindCompanyPDevice = (obj: any) => request({
+    url: '/api/Operation/PDevice/BindCompanyPDevice',
+    method: 'post',
+    data: obj,
 });

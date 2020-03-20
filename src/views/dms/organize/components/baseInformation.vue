@@ -1,5 +1,10 @@
 <template>
-    <el-dialog :visible.sync="visible" :closeOnClickModal="false" @close="onClose" title="基本信息">
+    <el-dialog 
+        :visible.sync="visible"
+        :closeOnClickModal="false"
+        @close="onClose"
+        title="基本信息"
+    >
         <div
             style="padding:0 30px 30px;"
             class="container"

@@ -120,7 +120,7 @@ export default new Router({
                 },
                 {
                     path: 'fnTree',
-                    component: () => import('@/views/dms/fnTree.vue'),
+                    component: () => import('@/views/dms/fnTree/index.vue'),
                     name: 'fnTree',
                     meta: { title: '功能树', icon: '&#xe67a;' },
                 },
