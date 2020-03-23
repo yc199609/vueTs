@@ -28,7 +28,7 @@ import { mixins } from 'vue-class-component';
 import { Form as ElForm } from 'element-ui';
 
 import { Dialog } from '@/mixins';
-import { Stethophone } from '../oprate.vue';
+import { Stethophone } from '../index.vue';
 import { updateStethophone } from '@/api/stethophone';
 
 @Component({

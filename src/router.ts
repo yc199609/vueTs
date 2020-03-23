@@ -135,7 +135,7 @@ export default new Router({
             children: [
                 {
                     path: 'dataBase',
-                    component: () => import('@/views/systemSetup/dataBase.vue'),
+                    component: () => import('@/views/systemSetup/dataBase/index.vue'),
                     name: 'dataBase',
                     meta: { title: '数据库设置', icon: '&#xe603;' },
                 },
@@ -271,7 +271,7 @@ export default new Router({
             children: [
                 {
                     path: 'indicatorManage',
-                    component: () => import('@/views/stethophone/oprate.vue'),
+                    component: () => import('@/views/stethophone/index.vue'),
                     name: 'Oprate',
                     meta: { title: '听诊器', icon: '&#xe646;' },
                 },

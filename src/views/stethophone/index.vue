@@ -74,7 +74,7 @@ export interface Stethophone {
 Vue.filter('boolFormat', (bool: boolean) => bool ? '已绑定' : '未绑定');
 
 @Component({
-    name: 'oprate',
+    name: 'stethophone',
     components: {
         searchBar,
         insertDialog,
