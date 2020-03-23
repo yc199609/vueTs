@@ -103,7 +103,7 @@ export default class Organize extends mixins(Pagination) {
             pageIndex: this.pageIndex,
             pageSize: this.pageSize,
             ...isNotEmpty(this.keyword) && {
-                keyword: this.keyword,
+                keyword: this.keyword.trim(),
             },
         };
         const { data }  = await getCompanyList(requestData);

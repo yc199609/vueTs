@@ -57,7 +57,7 @@ export interface Option {
     name: 'SearchBar',
 })
 export default class extends Vue {
-    @Prop({ default: []}) private options!: Option[];
+    @Prop({ default: () => ([])}) private options!: Option[];
     @Prop({default: false}) private hiddenSearch!: boolean;
     @Prop({default: false}) private hiddenInput!: boolean;
 
