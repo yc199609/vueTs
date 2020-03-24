@@ -141,7 +141,7 @@ export default new Router({
                 },
                 {
                     path: 'systemProp',
-                    component: () => import('@/views/systemSetup/systemProp.vue'),
+                    component: () => import('@/views/systemSetup/systemProp/index.vue'),
                     name: 'systemProp',
                     meta: { title: '系统参数', icon: '&#xe655;' },
                 },

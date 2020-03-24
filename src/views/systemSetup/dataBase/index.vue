@@ -25,39 +25,64 @@
                     </template>
                 </el-table-column>
                 <el-table-column align="center" label="操作">
-                    <template>
+                    <template slot-scope="scope">
                         <el-tooltip content="修改名称" placement="top" effect="dark">
-                            <el-button size="small" type="primary" icon="el-icon-edit-outline" />
+                            <el-button size="small" type="primary" icon="el-icon-edit-outline" @click="handleChangeName(scope.row)" />
                         </el-tooltip>
                         <el-tooltip content="修改配置" placement="top" effect="dark">
-                            <el-button size="small" type="warning" icon="el-icon-setting" />
+                            <el-button size="small" type="warning" icon="el-icon-setting" @click="handleModifyConfig(scope.row)" />
                         </el-tooltip>
-                        <el-tooltip content="删除" placement="top" effect="dark">
-                            <el-button size="small" type="danger" icon="el-icon-setting" />
+                        <el-tooltip :content="statusFormat(scope.row.status,false).text" placement="top" effect="dark">
+                            <el-button 
+                                size="small" 
+                                :type="statusFormat(scope.row.status,false).type" 
+                                :icon="statusFormat(scope.row.status,false).icon"
+                                @click="handleChangeStatus(scope.row)"
+                            />
                         </el-tooltip>
                     </template>
                 </el-table-column>
             </el-table>
         </el-card>
+        <changeName v-if="changeNameVisible" ref="changeName" @hidden="dialogHidden" />
+        <modifyConfig v-if="modifyConfigVisible" ref="modifyConfig" @hidden="dialogHidden" />
     </div>
 </template>
 
 <script lang='ts' >
 import { Vue, Component } from 'vue-property-decorator';
 
-import { dataBaseList } from '@/api/systemSetup/dataBase';
+import { dataBaseList, updateStatus } from '@/api/systemSetup/dataBase';
 import { isNotEmpty } from '@/utils/validate';
 import searchBar from '@/components/searchBar.vue';
+
+import changeName from './components/changeName.vue';
+import modifyConfig from './components/modifyConfig.vue';
+
+export interface DB {
+    dbName: string;
+    id: number;
+    ip: string;
+    isDefault: number;
+    name: string;
+    port: number;
+    status: number;
+    userName: string;
+}
 
 @Component({
     name: 'dataBase',
     components: {
         searchBar,
+        changeName,
+        modifyConfig,
     },
 })
 export default class extends Vue {
     private tableData = [];
     private keyword: string = '';
+    private changeNameVisible: boolean = false;
+    private modifyConfigVisible: boolean = false;
 
     public async init() {
         const { data } = await dataBaseList({
@@ -68,21 +93,68 @@ export default class extends Vue {
         this.tableData  = data;
     }
 
-    private statusFormat(num: number) {
-        if (num === 100) {
-            return {
-                text: '启用',
-                type: 'success',
-            };
+    private mounted() {
+        this.init();
+    }
+
+    private statusFormat(num: number, flag: boolean = true) {
+        const OPEN = {
+            text: '启用',
+            type: 'success',
+            icon: 'el-icon-circle-check',
+        };
+        const PAUSE = {
+            text: '停用',
+            type: 'danger',
+            icon: 'el-icon-remove-outline',
+        };
+        if (flag) {
+            if (num === 100) {
+                return OPEN;
+            } else {
+                return PAUSE;
+            }
         } else {
-            return {
-                text: '停用',
-                type: 'danger',
-            };
+            if (num === 100) {
+                return PAUSE;
+            } else {
+                return OPEN;
+            }
         }
     }
 
-    private mounted() {
+    private handleChangeName(data: DB) {
+        this.changeNameVisible = true;
+        this.$nextTick(() => {
+            (this.$refs.changeName as any).init(data);
+        });
+    }
+
+    private handleModifyConfig(data: DB) {
+        this.modifyConfigVisible = true;
+        this.$nextTick(() => {
+            (this.$refs.modifyConfig as any).init(data);
+        });
+    }
+
+    private handleChangeStatus( data: DB) {
+        updateStatus({
+            id: data.id,
+            status: data.status === 0 ? 100 : 0,
+        });
+        this.$message({
+            type: 'success',
+            message: `已成功${data.status === 0 ? '启用' : '停用'}`,
+            duration: 500,
+            onClose: () => {
+                this.init();
+            },
+        });
+    }
+
+    private dialogHidden() {
+        this.changeNameVisible = false;
+        this.modifyConfigVisible = false;
         this.init();
     }
 
