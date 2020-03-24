@@ -249,9 +249,9 @@ export default new Router({
                     meta: { title: '物理设备类型', icon: '&#xe62e;' },
                 },
                 {
-                    path: 'terminal',
-                    component: () => import('@/views/physicalEquipment/terminal.vue'),
-                    name: 'terminal',
+                    path: 'terminalManage',
+                    component: () => import('@/views/physicalEquipment/terminalManage/index.vue'),
+                    name: 'terminalManage',
                     meta: { title: '终端管理', icon: '&#xe613;' },
                 },
                 {
