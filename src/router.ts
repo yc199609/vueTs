@@ -237,14 +237,14 @@ export default new Router({
                     // 物理设备-指标管理 不显示
                 },
                 {
-                    path: 'physicalEquipmentManager',
-                    component: () => import('@/views/physicalEquipment/physicalEquipmentManager.vue'),
-                    name: 'physicalEquipmentManager',
+                    path: 'physicalEquipmentManage',
+                    component: () => import('@/views/physicalEquipment/physicalEquipmentManage/index.vue'),
+                    name: 'physicalEquipmentManage',
                     meta: { title: '物理设备管理', icon: '&#xe631;' },
                 },
                 {
                     path: 'physicalEquipmentType',
-                    component: () => import('@/views/physicalEquipment/physicalEquipmentType.vue'),
+                    component: () => import('@/views/physicalEquipment/physicalEquipmentType/index.vue'),
                     name: 'physicalEquipmentManager',
                     meta: { title: '物理设备类型', icon: '&#xe62e;' },
                 },
@@ -256,7 +256,7 @@ export default new Router({
                 },
                 {
                     path: 'terminalType',
-                    component: () => import('@/views/physicalEquipment/terminalType.vue'),
+                    component: () => import('@/views/physicalEquipment/terminalType/index.vue'),
                     name: 'terminalType',
                     meta: { title: '终端类型管理', icon: '&#xe676;' },
                 },

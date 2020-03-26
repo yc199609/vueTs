@@ -6,8 +6,8 @@
     <el-card>
         <el-input 
             v-if="!hiddenInput" 
-            class="input" 
-            size="small" 
+            class="input"
+            size="small"
             v-model="keyword" 
             :clearable="true" 
             placeholder="请输入内容"

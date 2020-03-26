@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { Message } from 'element-ui';
+import { Message, MessageBox } from 'element-ui';
+import { UserModule } from '@/store/modules/user';
 
 const service = axios.create({
     baseURL: process.env.BASE_API,
@@ -34,10 +35,29 @@ service.interceptors.response.use(
         }
     },
     (error) => {
+        const status = error.response.status;
+        if (status === 401) {
+            MessageBox.confirm(
+                '你已被登出，可以取消继续留在该页面，或者重新登录',
+                '确定登出',
+                {
+                    confirmButtonText: '重新登录',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                },
+            ).then(() => {
+                UserModule.FedLogOut();
+                location.reload();
+                return Promise.reject(error);
+            })
+            .catch(() => {
+                return Promise.reject(error);
+            });
+        }
         Message({
             message: error.message,
             type: 'error',
-            duration: 5 * 1000,
+            duration: 3 * 1000,
         });
         return Promise.reject(error);
     },
