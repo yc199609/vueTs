@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <searchBar :options="options" @search="search" @handleInsert="handleInsert" />
+        <searchBar :options="options" @search="search" @handleInsert="handleBaseInfo" />
         <el-card style="margin-top:10px;">
             <el-table border :data="tableData" >
                 <template slot="empty">
@@ -16,11 +16,11 @@
                 <el-table-column align="center" prop="deviceTerminalNum" label="绑定终端个数"></el-table-column>
                 <el-table-column align="center" label="操作">
                     <template slot-scope="scope">
-                        <el-button size="small" type="text"  @click="handleDevicePart(scope.row.id)">基础信息</el-button>
-                        <el-button size="small" type="text"  @click="handleDevicePart(scope.row.id)">绑定机构</el-button>
-                        <el-button size="small" type="text"  @click="handleDevicePart(scope.row.id)">设备部位</el-button>
+                        <el-button size="small" type="text"  @click="handleBaseInfo(scope.row.id)">基础信息</el-button>
+                        <el-button size="small" type="text"  @click="handleBindOrganize(scope.row)">绑定机构</el-button>
+                        <el-button size="small" type="text"  @click="handleDevicePart(scope.row)">设备部位</el-button>
                         <br />
-                        <el-button size="small" type="text"  @click="handleDevicePart(scope.row.id)">指标管理</el-button>
+                        <el-button size="small" type="text"  @click="handleIndicator(scope.row.id)">指标管理</el-button>
                         <el-button size="small" type="text"  @click="handleDelete(scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>
@@ -37,6 +37,8 @@
             style="margin: 15px 0;"
         />
         <editDialog ref="editDialog" v-if="editDialogVisible" @hidden="dialogHidden" />
+        <bindOrganize ref="bindOrganize" v-if="bindOrganizeVisible" @hidden="dialogHidden" />
+        <devicePart ref="devicePart" v-if="devicePartVisible" @hidden="dialogHidden" />
     </div>
 </template>
 
@@ -49,12 +51,16 @@ import Pagination from '@/mixins/pagination';
 import { getPDevice, deletePDevice } from '@/api/physicalEquipment/physicalEquipmentManage';
 import { isNotEmpty } from '@/utils/validate';
 import editDialog from './components/editDialog.vue';
+import bindOrganize from './components/bindOrganize.vue';
+import devicePart from './components/devicePart.vue';
 
 @Component({
     name: 'Organize',
     components: {
         searchBar,
         editDialog,
+        bindOrganize,
+        devicePart,
     },
 })
 export default class Organize extends mixins(Pagination) {
@@ -65,6 +71,8 @@ export default class Organize extends mixins(Pagination) {
     private keyword: string = '';
     private tableData = [];
     private editDialogVisible: boolean = false;
+    private bindOrganizeVisible: boolean = false;
+    private devicePartVisible: boolean = false;
 
     public async init() {
         const requestData = {
@@ -92,29 +100,34 @@ export default class Organize extends mixins(Pagination) {
 
     private dialogHidden() {
         this.editDialogVisible = false;
+        this.bindOrganizeVisible = false;
+        this.devicePartVisible = false;
         this.init();
     }
 
-    private handleInsert() {
+    private handleBaseInfo(id?: number) {
         this.editDialogVisible = true;
         this.$nextTick(() => {
-            (this.$refs.editDialog as any).init();
+            (this.$refs.editDialog as any).init(id);
         });
     }
 
-    private handleModify(data: {
-        id: number,
-        code: string,
-        terminalTypeId: number,
-    }) {
-        this.editDialogVisible = true;
+    private handleBindOrganize(data: any) {
+        this.bindOrganizeVisible = true;
         this.$nextTick(() => {
-            (this.$refs.editDialog as any).init(data);
+            (this.$refs.bindOrganize as any).init(data);
         });
     }
 
-    private handleDevicePart(id: number) {
+    private handleDevicePart(device: {typeId: number, id: number}) {
+        this.devicePartVisible = true;
+        this.$nextTick(() => {
+            (this.$refs.devicePart as any).init(device);
+        });
+    }
 
+    private handleIndicator() {
+        this.$router.push('/physicalEquipment/indicatorManage');
     }
 
     private async handleDelete(id: number) {

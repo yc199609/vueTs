@@ -1,6 +1,6 @@
 <template>
-    <div>indicatorManage
-
+    <div>
+        indicatorManage
     </div>
 </template>
 

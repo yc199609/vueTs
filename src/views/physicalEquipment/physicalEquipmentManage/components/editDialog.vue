@@ -5,7 +5,7 @@
         :modal-append-to-body="false"
         :visible.sync="visible"
         :closeOnClickModal="false"
-        title="新增设备部位"
+        :title="modelOption.title"
         @close="onClose"
     >
         <el-form inline label-width="100px" :model="form" :rules="rules" ref="form">
@@ -98,17 +98,19 @@ enum TabName {
     baseInfo = 'baseInfo',
     extraProp = 'extraProp',
 }
+enum Model {
+    modify,
+    insert,
+}
 interface ExtraProp {
     propertyName: string;
     propertyValue: string;
 }
-
 interface PropertyData {
     id: number;
     code: string;
     properties: ExtraProp[];
 }
-
 interface Form {
     name: string;
     code: string;
@@ -140,6 +142,7 @@ export default class extends mixins(Dialog) {
     private activeName: TabName = TabName.baseInfo;
     private id: number = -1;
     private propertyData: PropertyData[] = [];
+    private model: Model = Model.insert;
 
     private get properties() {
         const index = this.propertyData.findIndex((item) => item.id === this.form.typeId);
@@ -150,17 +153,47 @@ export default class extends mixins(Dialog) {
         }
     }
 
+    private get modelOption() {
+        if (this.model === Model.insert) {
+            return {
+                title: '新增',
+                msg: '新增成功',
+                fn: createPDevice,
+            };
+        } else {
+            return {
+                title: '基础信息',
+                msg: '修改成功',
+                fn: updatePDevice,
+            };
+        }
+    }
+
     public async init(id: number) {
-        this.id = id;
         this.visible = true;
-        const { data } = await getAllPDeviceType();
-        this.typeList = data;
-        const { data: propertyJson } = await getPropertyList();
-        this.propertyData = JSON.parse(propertyJson);
+        let res;
+        if (id) {
+            this.id = id;
+            this.model = Model.modify;
+            res = await Promise.all([getAllPDeviceType(), getPropertyList(), getPDeviceById(id)]);
+            this.form.name = res[2].data.name;
+            this.form.code = res[2].data.code;
+            this.form.typeId = res[2].data.typeId;
+            this.form.fixedPropList = res[2].data.properties.filter((item: any) => item.isExtProperty === 0);
+            this.form.extraPropList = res[2].data.properties.filter((item: any) => item.isExtProperty === 1);
+        } else {
+            res = await Promise.all([getAllPDeviceType(), getPropertyList()]);
+        }
+        this.typeList = res[0].data;
+        this.propertyData = JSON.parse(res[1].data);
     }
 
     private async submit() {
-        const extraPropList = this.form.extraPropList.map((item: ExtraProp) => ({
+        const fixedPropList = this.form.fixedPropList.map((item) => ({
+            ...item,
+            isExtProperty: 0,
+        }));
+        const extraPropList = this.form.extraPropList.map((item) => ({
             ...item,
             isExtProperty: 1,
         }));
@@ -168,15 +201,20 @@ export default class extends mixins(Dialog) {
             code: this.form.code,
             name: this.form.name,
             typeId: (this.form.typeId as number),
-            properties: this.form.fixedPropList.concat(extraPropList),
+            properties: fixedPropList.concat(extraPropList),
         };
 
         (this.$refs.form as ElForm).validate(async (valid, error) => {
             if (valid) {
-                await createPDevice(sendForm);
+                await this.modelOption.fn({
+                    ...sendForm,
+                    ...this.model === Model.modify && {
+                        id: this.id,
+                    },
+                });
                 this.$message({
                     type: 'success',
-                    message: '新增成功',
+                    message: this.modelOption.msg,
                     duration: 500,
                     onClose: () => {
                         this.visible = false;
@@ -205,8 +243,8 @@ export default class extends mixins(Dialog) {
         this.$set(this.form, 'fixedPropList', this.properties);
     }
 
-    private deleteExtraProp(index: number) {
-        this.$set(this.form, 'extraPropList', this.form.extraPropList.splice(index, 1));
+    private deleteExtraProp(num: number) {
+        this.$set(this.form, 'extraPropList', this.form.extraPropList.filter((item, index) => index !== num));
     }
 }
 </script>
