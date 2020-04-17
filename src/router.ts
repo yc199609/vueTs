@@ -177,7 +177,7 @@ export default new Router({
             children: [
                 {
                     path: 'type',
-                    component: () => import('@/views/instructions/type.vue'),
+                    component: () => import('@/views/instructions/type/index.vue'),
                     name: 'type',
                     meta: { title: '指标类型', icon: '&#xe638;' },
                 },
