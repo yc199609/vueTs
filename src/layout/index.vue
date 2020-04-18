@@ -7,7 +7,6 @@
         <div
             v-if="classObj.mobile && sidebar.opened"
             class="drawer-bg"
-            @click="handleClickOutside"
         />
         <sidebar class="sidebar-container" />
         <div class="main-container">

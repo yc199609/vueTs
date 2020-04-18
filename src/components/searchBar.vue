@@ -5,7 +5,7 @@
 <template>
     <el-card>
         <el-input 
-            v-if="!hiddenInput" 
+            v-if="!hiddenInput"
             class="input"
             size="small"
             v-model="keyword" 
@@ -64,7 +64,12 @@ export default class extends Vue {
     private keyword: string = '';
 
     private hanleClick(emit: string) {
-        this.$emit(emit, this.keyword);
+        // 调用父组件中的方法
+        try {
+            (this.$parent as any)[emit](this.keyword);
+        } catch (e) {
+            console.error(`调用searchBar的组件中不存在${emit}方法`);
+        }
     }
 }
 </script>
